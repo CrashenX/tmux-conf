@@ -7,14 +7,15 @@ project (TMUX)
 set (TMUX_VERSION_MAJOR 1)
 set (TMUX_VERSION_MINOR 0)
 
-file(GLOB Configs ${CMAKE_SOURCE_DIR}/config/*)
+set(Configs tmux.conf)
+
 add_custom_target(config ALL)
+
 foreach(C ${Configs})
-    get_filename_component(Dest ${C} NAME)
     add_custom_command( TARGET config
                         COMMAND ${CMAKE_COMMAND} -E copy
-                            ${C}
-                            ${CMAKE_BINARY_DIR}/config/.${Dest}
+                            ${CMAKE_SOURCE_DIR}/config/${C}
+                            ${CMAKE_BINARY_DIR}/config/.${C}
                       )
 endforeach()
 
